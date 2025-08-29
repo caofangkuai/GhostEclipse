@@ -1,28 +1,19 @@
 package cfks.bugjump.ghosteclipse;
 
+import android.util.Pair;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import jiesheng.加解密操作;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Random;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.List;
+import okhttp3.*;
+import java.net.URLEncoder;
+import java.util.*;
 
 // 注:此类方法中所有的String userId, String userToken均为执行者的
 //均为异步http请求,请放新线程执行
@@ -185,7 +176,7 @@ public class NeteaseApiHelper {
       .build();
 
     Response response = client.newCall(request).execute();
-    return response.isSuccessful() ? new JSONObject(response.body().string()) : new JSONObject();
+    return response.isSuccessful() ? new JSONObject(response.body().string()) : null;
   }
 
   // 通过游戏内显示的服务器号搜索租赁服(用于获取server_id)
@@ -205,7 +196,7 @@ public class NeteaseApiHelper {
       .build();
 
     Response response = client.newCall(request).execute();
-    return response.isSuccessful() ? new JSONObject(response.body().string()) : new JSONObject();
+    return response.isSuccessful() ? new JSONObject(response.body().string()) : null;
   }
 
   // 通过游戏内显示的房间号搜索联机大厅房间
@@ -228,7 +219,7 @@ public class NeteaseApiHelper {
       .build();
 
     Response response = client.newCall(request).execute();
-    return response.isSuccessful() ? new JSONObject(response.body().string()) : new JSONObject();
+    return response.isSuccessful() ? new JSONObject(response.body().string()) : null;
   }
 
   // 获取加入的群组列表
@@ -240,7 +231,7 @@ public class NeteaseApiHelper {
       .build();
 
     Response response = client.newCall(request).execute();
-    return response.isSuccessful() ? new JSONObject(response.body().string()) : new JSONObject();
+    return response.isSuccessful() ? new JSONObject(response.body().string()) : null;
   }
 
   // 获取好友列表
@@ -252,7 +243,7 @@ public class NeteaseApiHelper {
       .build();
 
     Response response = client.newCall(request).execute();
-    return response.isSuccessful() ? new JSONObject(response.body().string()) : new JSONObject();
+    return response.isSuccessful() ? new JSONObject(response.body().string()) : null;
   }
 
   // 获取公告
@@ -274,7 +265,7 @@ public class NeteaseApiHelper {
       .build();
 
     Response response = client.newCall(request).execute();
-    return response.isSuccessful() ? new JSONObject(response.body().string()) : new JSONObject();
+    return response.isSuccessful() ? new JSONObject(response.body().string()) : null;
   }
 
   // 通过uid获取多个玩家信息
@@ -294,7 +285,7 @@ public class NeteaseApiHelper {
       .build();
 
     Response response = client.newCall(request).execute();
-    return response.isSuccessful() ? new JSONObject(response.body().string()) : new JSONObject();
+    return response.isSuccessful() ? new JSONObject(response.body().string()) : null;
   }
 
   // 获取联机大厅房间成员列表
@@ -306,7 +297,7 @@ public class NeteaseApiHelper {
       .build();
 
     Response response = client.newCall(request).execute();
-    return response.isSuccessful() ? new JSONObject(response.body().string()) : new JSONObject();
+    return response.isSuccessful() ? new JSONObject(response.body().string()) : null;
   }
 
   // 获取网易钻石数量信息
@@ -318,7 +309,7 @@ public class NeteaseApiHelper {
       .build();
 
     Response response = client.newCall(request).execute();
-    return response.isSuccessful() ? new JSONObject(response.body().string()) : new JSONObject();
+    return response.isSuccessful() ? new JSONObject(response.body().string()) : null;
   }
 
   // 通过用户名查询玩家信息
@@ -337,10 +328,10 @@ public class NeteaseApiHelper {
       .build();
 
     Response response = client.newCall(request).execute();
-    return response.isSuccessful() ? new JSONObject(response.body().string()) : new JSONObject();
+    return response.isSuccessful() ? new JSONObject(response.body().string()) : null;
   }
     
-  public static JSONObject authenticationOtp(String osName, String osVer, String macAddr, String saUdid, String appVer, String disk, String sdkUid, String sessionId, String sdkVersion, String udid, String deviceId, String aid, String otpToken) {
+  public static JSONObject authenticationOtp(String osName, String osVer, String macAddr, String saUdid, String appVer, String disk, String sdkUid, String sessionId, String sdkVersion, String udid, String deviceId, String aid, String otpToken) throws Exception {
   	String packet = "{\"otp_token\":\"$OTPToken$\",\"otp_pwd\":\"\",\"aid\":$A1D$,\"sauth_json\":\"{\\u0022gameid\\u0022:\\u0022x19\\u0022,\\u0022login_channel\\u0022:\\u0022netease\\u0022,\\u0022app_channel\\u0022:\\u0022netease\\u0022,\\u0022platform\\u0022:\\u0022pc\\u0022,\\u0022sdkuid\\u0022:\\u0022$SDKUID$\\u0022,\\u0022sessionid\\u0022:\\u0022$sessionid$\\u0022,\\u0022sdk_version\\u0022:\\u00223.4.0\\u0022,\\u0022udid\\u0022:\\u0022$UDID$\\u0022,\\u0022deviceid\\u0022:\\u0022$deviceid$\\u0022,\\u0022aim_info\\u0022:\\u0022{\\\\\\u0022aim\\\\\\u0022:\\\\\\u0022$IP$\\\\\\u0022,\\\\\\u0022country\\\\\\u0022:\\\\\\u0022CN\\\\\\u0022,\\\\\\u0022tz\\\\\\u0022:\\\\\\u0022\\\\\\u002B0800\\\\\\u0022,\\\\\\u0022tzid\\\\\\u0022:\\\\\\u0022\\\\\\u0022}\\u0022,\\u0022client_login_sn\\u0022:\\u0022846C15C9F72E4C399247CFB35532C07A\\u0022,\\u0022gas_token\\u0022:\\u0022\\u0022,\\u0022source_platform\\u0022:\\u0022pc\\u0022,\\u0022ip\\u0022:\\u0022$IP$\\u0022}\",\"sa_data\":\"{\\u0022os_name\\u0022:\\u0022$OS_NAME$\\u0022,\\u0022os_ver\\u0022:\\u0022$OS_VER$\\u0022,\\u0022mac_addr\\u0022:\\u0022$MACA$\\u0022,\\u0022udid\\u0022:\\u0022$udid_sa$\\u0022,\\u0022app_ver\\u0022:\\u0022$APPVER$\\u0022,\\u0022sdk_ver\\u0022:\\u0022\\u0022,\\u0022network\\u0022:\\u0022\\u0022,\\u0022disk\\u0022:\\u0022$Disk$\\u0022,\\u0022is64bit\\u0022:\\u00221\\u0022,\\u0022video_card1\\u0022:\\u0022NVIDIA GeForce GTX 1060\\u0022,\\u0022video_card2\\u0022:\\u0022\\u0022,\\u0022video_card3\\u0022:\\u0022\\u0022,\\u0022video_card4\\u0022:\\u0022\\u0022,\\u0022launcher_type\\u0022:\\u0022PC_java\\u0022,\\u0022pay_channel\\u0022:\\u0022netease\\u0022}\",\"version\":{\"version\":\"$APPVER$\",\"launcher_md5\":\"\",\"updater_md5\":\"\"}}";
       packet = packet.replace("$OS_NAME$", osName)
       .replace("$OS_VER$", osVer)
@@ -357,8 +348,231 @@ public class NeteaseApiHelper {
       .replace("$A1D$", aid)
       .replace("$OTPToken$", otpToken);
       byte[] data = x19Crypt.httpEncrypt(packet.getBytes());
-      return new JSONObject();
+      RequestBody body = RequestBody.create(data, JSON_MEDIA_TYPE);
+      Request request = new Request.Builder()
+      .addHeader("User-Agent", UA)
+      .addHeader("Content-Type", "application/json")
+      .url(serverUrlList.getString("CoreServerUrl") + "/authentication-otp")
+      .post(body)
+      .build();
+      Response response = client.newCall(request).execute();
+      return response.isSuccessful() ? new JSONObject(new JSONObject(x19Crypt.parseLoginResponse(response.body().string().replaceAll("-","").getBytes())).getString("entity")) : null;
   }
+    
+  public static JSONObject loginOtp(String sAuthJson) throws Exception {
+      RequestBody body = RequestBody.create(sAuthJson, JSON_MEDIA_TYPE);
+      Request request = new Request.Builder()
+      .addHeader("User-Agent", UA)
+      .addHeader("Content-Type", "application/json")
+      .url(serverUrlList.getString("CoreServerUrl") + "/login-otp")
+      .post(body)
+      .build();
+      Response response = client.newCall(request).execute();
+      return response.isSuccessful() ? new JSONObject(new JSONObject(response.body().string()).getString("entity")) : null;
+  }
+    
+  public static JSONObject cookiesLogin(String cookies) throws Exception {
+      JSONObject sAuthJson = new JSONObject(new JSONObject(cookies).getString("sauth_json"));
+      JSONObject loginOtpRetEntity = loginOtp(cookies);
+      JSONObject authOtpRetEntityEntity = authenticationOtp("android", "OPPO A5",
+        x19Crypt.randStringRunes(12),"BFEBFBFF000406E34EA2FD9D","1.10.7.22905",
+        x19Crypt.randStringRunes(8),
+        sAuthJson.getString("sdkuid"),sAuthJson.getString("sessionid"),"1.0.0",sAuthJson.getString("udid"),
+        sAuthJson.getString("deviceid"),
+        Integer.toString(loginOtpRetEntity.getInt("aid")),loginOtpRetEntity.getString("otp_token"));
+      return authOtpRetEntityEntity;
+  }
+
+public static Pair<String, Integer> pt4399Login(String username, String password) {
+    OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .cookieJar(new CookieJar() {
+                private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
+                
+                @Override
+                public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+                    cookieStore.put(url.host(), cookies);
+                }
+                
+                @Override
+                public List<Cookie> loadForRequest(HttpUrl url) {
+                    List<Cookie> cookies = cookieStore.get(url.host());
+                    return cookies != null ? cookies : new ArrayList<Cookie>();
+                }
+            })
+            .build();
+    
+    try {
+        String captchasessionid = "captchaReq" + x19Crypt.randStringRunes(19);
+        String sessionId = UUID.randomUUID().toString();
+        
+        // 第一次登录请求
+        RequestBody firstLoginBody = RequestBody.create(
+                "postLoginHandler=default&externalLogin=qq&bizId=2100001792&appId=kid_wdsj&gameId=wd&sec=1&password=" + 
+                URLEncoder.encode(password, "UTF-8") + "&username=" + URLEncoder.encode(username, "UTF-8"),
+                MediaType.parse("application/x-www-form-urlencoded"));
+        
+        Request firstRequest = new Request.Builder()
+                .url("http://ptlogin.4399.com/ptlogin/login.do?v=1")
+                .post(firstLoginBody)
+                .addHeader("Cookie", "ptusertype=kid_wdsj.4399_login; phlogact=l123456; USESSIONID=" + sessionId)
+                .build();
+        
+        Response loginResponse = client.newCall(firstRequest).execute();
+        String loginResponseContent = loginResponse.body().string();
+        
+        // 检查是否需要验证码
+        if (loginResponseContent.contains("<div id=\"Msg\" class=\"login_hor login_err_tip\">") && 
+            loginResponseContent.contains("<div id=\"Msg\" class=\"login_hor login_err_tip\"></div>")) {
+            
+            for (int i = 0; i < 5; i++) {
+                // 获取验证码图片
+                Request captchaRequest = new Request.Builder()
+                        .url("http://ptlogin.4399.com/ptlogin/captcha.do?captchaId=" + captchasessionid)
+                        .build();
+                
+                Response captchaResponse = client.newCall(captchaRequest).execute();
+                byte[] codeImg = captchaResponse.body().bytes();
+                
+                // 识别验证码（需要实现 ServerAuth.parseCodeFromImage 方法）
+                String result = "ServerAuth.ParseCodeFromImage(codeImg)";//ServerAuth.parseCodeFromImage(codeImg);
+                if (result != null && result.length() == 4) {
+                    String yanzhengma = result;
+                    RequestBody retryBody = RequestBody.create(
+                            "postLoginHandler=default&externalLogin=qq&bizId=2100001792&appId=kid_wdsj&gameId=wd&sec=1&password=" + 
+                            URLEncoder.encode(password, "UTF-8") + "&username=" + URLEncoder.encode(username, "UTF-8") + 
+                            "&sessionId=" + captchasessionid + "&inputCaptcha=" + yanzhengma,
+                            MediaType.parse("application/x-www-form-urlencoded"));
+                    
+                    Request retryRequest = new Request.Builder()
+                            .url("http://ptlogin.4399.com/ptlogin/login.do?v=1")
+                            .post(retryBody)
+                            .addHeader("Cookie", "ptusertype=kid_wdsj.4399_login; phlogact=l123456; USESSIONID=" + sessionId)
+                            .build();
+                    
+                    loginResponse = client.newCall(retryRequest).execute();
+                    loginResponseContent = loginResponse.body().string();
+                    
+                    if (!loginResponseContent.contains("<div id=\"Msg\" class=\"login_hor login_err_tip\"></div>")) {
+                        break;
+                    }
+                }
+            }
+        }
+        
+        // 检查验证码识别结果
+        if (loginResponseContent.contains("<div id=\"Msg\" class=\"login_hor login_err_tip\"></div>")) {
+            return new Pair<>("验证码识别失败且登录过于频繁", 1);
+        }
+        
+        // 检查其他错误信息
+        if (loginResponseContent.contains("<div id=\"Msg\" class=\"login_hor login_err_tip\">")) {
+            int startIndex = loginResponseContent.indexOf("<div id=\"Msg\" class=\"login_hor login_err_tip\">\r\n\t\t\t\t\t\t\t\t\t");
+            int endIndex = loginResponseContent.indexOf("\r\n\t\t\t\t\t\t\t\t</div>");
+            
+            if (startIndex != -1 && endIndex != -1) {
+                String errorMsg = loginResponseContent.substring(
+                        startIndex + "<div id=\"Msg\" class=\"login_hor login_err_tip\">\r\n\t\t\t\t\t\t\t\t\t".length(),
+                        endIndex).trim();
+                return new Pair<>(errorMsg, 2);
+            }
+        }
+        
+        // 检查登录成功
+        if (loginResponse.isSuccessful()) {
+            // 获取Cookie
+            List<String> cookies = loginResponse.headers("Set-Cookie");
+            String uauthValue = null;
+            
+            for (String cookie : cookies) {
+                if (cookie.contains("Uauth=")) {
+                    int start = cookie.indexOf("Uauth=") + 6;
+                    int end = cookie.indexOf(";", start);
+                    uauthValue = cookie.substring(start, end != -1 ? end : cookie.length());
+                    uauthValue = java.net.URLDecoder.decode(uauthValue, "UTF-8");
+                    break;
+                }
+            }
+            
+            if (uauthValue == null) {
+                return new Pair<>("请检查账号密码是否输入正确", 3);
+            }
+            
+            String[] values = uauthValue.split("\\|");
+            if (values.length < 5) {
+                return new Pair<>("无效的认证信息", 3);
+            }
+            
+            String randTime = values[4];
+            
+            // 发送检查请求
+            Request checkRequest = new Request.Builder()
+                    .url("http://ptlogin.4399.com/ptlogin/checkKidLoginUserCookie.do?appId=kid_wdsj&gameUrl=http://cdn.h5wan.4399sj.com/microterminal-h5-frame?game_id=500352&rand_time=" + 
+                         randTime + "&nick=null&onLineStart=false&show=1&isCrossDomain=1&retUrl=http%253A%252F%252Fptlogin.4399.com%252Fresource%252Fucenter.html")
+                    .post(RequestBody.create("", null))
+                    .addHeader("Cookie", "phlogact=l123456; USESSIONID=" + sessionId + "; Uauth=" + uauthValue + "; Puser=" + username)
+                    .build();
+            
+            Response checkResponse = client.newCall(checkRequest).execute();
+            
+            if (!checkResponse.isSuccessful()) {
+                return new Pair<>("检查请求失败", 4);
+            }
+            
+            // 获取信息请求
+            String queryStr = checkRequest.url().query();
+            Request infoRequest = new Request.Builder()
+                    .url("https://microgame.5054399.net/v2/service/sdk/info?callback=&queryStr=" + URLEncoder.encode(queryStr, "UTF-8"))
+                    .addHeader("Cookie", "phlogact=l123456; USESSIONID=" + sessionId + "; Uauth=" + uauthValue + "; Puser=" + username)
+                    .build();
+            
+            Response infoResponse = client.newCall(infoRequest).execute();
+            String infoContent = infoResponse.body().string();
+            
+            JSONObject jsonObj = new JSONObject(infoContent);
+            int code = jsonObj.getInt("code");
+            String msg = jsonObj.getString("msg");
+            
+            if (code == 10000) {
+                JSONObject data = jsonObj.getJSONObject("data");
+                String sdkLoginData = data.getString("sdk_login_data");
+                String udid = x19Crypt.randStringRunes(32);
+                
+                Map<String, String> parameters = new HashMap<>();
+                for (String parameter : sdkLoginData.split("&")) {
+                    String[] parts = parameter.split("=");
+                    if (parts.length == 2) {
+                        parameters.put(parts[0], parts[1]);
+                    }
+                }
+                
+                String time = parameters.get("time");
+                String uid = parameters.get("uid");
+                String token = parameters.get("token");
+                
+                String sauth = "{\"sauth_json\" : \"{\\\"gameid\\\":\\\"x19\\\",\\\"login_channel\\\":\\\"4399pc\\\",\\\"app_channel\\\":\\\"4399pc\\\",\\\"platform\\\":\\\"pc\\\",\\\"sdkuid\\\":\\\"" + uid + 
+                        "\\\",\\\"sessionid\\\":\\\"" + token + "\\\",\\\"sdk_version\\\":\\\"1.0.0\\\",\\\"udid\\\":\\\"" + udid + 
+                        "\\\",\\\"deviceid\\\":\\\"" + udid + "\\\",\\\"aim_info\\\":\\\"{\\\\\\\"aim\\\\\\\":\\\\\\\"127.0.0.1\\\\\\\",\\\\\\\"country\\\\\\\":\\\\\\\"CN\\\\\\\",\\\\\\\"tz\\\\\\\":\\\\\\\"+0800\\\\\\\",\\\\\\\"tzid\\\\\\\":\\\\\\\"\\\\\\\"}\\\",\\\"client_login_sn\\\":\\\"" + 
+                        UUID.randomUUID().toString().replace("-", "").toUpperCase() + 
+                        "\\\",\\\"gas_token\\\":\\\"\\\",\\\"source_platform\\\":\\\"pc\\\",\\\"ip\\\":\\\"127.0.0.1\\\",\\\"userid\\\":\\\"" + 
+                        username.toLowerCase() + "\\\",\\\"realname\\\":\\\"{\\\\\\\"realname_type\\\\\\\":\\\\\\\"0\\\\\\\"}\\\",\\\"timestamp\\\":\\\"" + time + "\\\"}\"}";
+                
+                return new Pair<>(sauth, 0);
+            }
+            
+            return new Pair<>(msg, 4);
+        }
+        
+        return new Pair<>("未知错误", 5);
+        
+    } catch (IOException e) {
+        return new Pair<>("网络请求失败: " + e.getMessage(), 5);
+    } catch (Exception e) {
+        return new Pair<>("处理失败: " + e.getMessage(), 5);
+    }
+}
 
 public static class x19Crypt {
     private static final String[] _keys = {
@@ -492,7 +706,7 @@ public static class x19Crypt {
         return cipher.doFinal(data);
     }
 
-    private static String randStringRunes(int length) {
+    public static String randStringRunes(int length) {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         Random random = new Random();
         StringBuilder sb = new StringBuilder(length);

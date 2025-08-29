@@ -35,6 +35,11 @@
             android:key="switch_floating_window_type"
             android:summary="Select the type of floating window for the switch"
             android:title="Switch Floating Window Type" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:key="others"
+        android:title="Others">
         
         <Preference
             android:key="about"
