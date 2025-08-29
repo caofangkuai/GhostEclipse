@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 功能悬浮窗UI类型 -->
+    <string-array name="functional_floating_window_type">
+        <item>ProtoHax UI</item>
+    </string-array>
+    
+    <!-- 开关悬浮窗UI类型 -->
+    <string-array name="switch_floating_window_type">
+        <item>FoodByte UI</item>
+        <item>Phoen1x UI</item>
+    </string-array>
+</resources>

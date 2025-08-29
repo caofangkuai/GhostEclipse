@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <!-- Base application theme. -->
+  <style name="Base.AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+    <!-- Extend this style if you have other custom preferences -->
+    <item name="preferenceTheme">@style/M3PreferenceStyle</item>
+  </style>
+    
+  <style name="AppTheme" parent="Base.AppTheme" />
+</resources>

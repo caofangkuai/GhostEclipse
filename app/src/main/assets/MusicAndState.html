@@ -1,0 +1,691 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>ToolboxCN</title>
+	<script src="./jquery.min.js"></script>
+	<style>
+		#music{
+		          display:none;
+		          position: absolute;
+		          width:100%;
+		      }
+		body {
+		  background-color: rgba(255,255,255,0);
+		  color: white;
+		  font-family: Arial, sans-serif;
+		  text-align: center;
+		  margin: 0;
+		  padding: 0;
+		  height:100%;
+		  width:100%;
+		}
+		    html {
+		height:100%;
+		  width:100%;
+		}
+		.container {
+		  display: flex;
+		  flex-direction: column;
+		  align-items: center;
+		  justify-content: center;
+		  width:100%;
+		}
+		    .button {
+		background-color: #1B1B1B;
+		color: #f12b00;
+		border: none;
+		padding: 10px 20px;
+		cursor: pointer;
+		width: 100%;
+		font-size:14px;
+		    }
+		  .button2 {
+		    background-color: #3C3C3C;
+		    border: none;
+		padding: 10px 20px;
+		cursor: pointer;
+		color: #C1C1C1;
+		    width: 50%;
+		    font-size: 110%;
+		    }
+		  #title {
+		    background-color: #3C3C3C;
+		    color: #6498D4;
+		    border: none;
+		    padding: 10px 20px;
+		    cursor: pointer;
+		    width: 100%;
+		    font-size: 16px;
+		  font-weight: 500;
+		    }
+		  .button3 {
+		    color: #C1C1C1;
+		    background-color: #1B1B1B;
+		border: none;
+		padding: 10px 20px;
+		cursor: pointer;
+		width: 100%;
+		font-size:15px;
+		    }
+		  * {
+		        background: rgb(255 255 255 / 0%);
+		        margin: 0;
+		      }
+		      p#gc {
+		          color: #fff;
+		          text-align: center;
+		          margin-bottom: 30px;
+		          text-shadow: 0 0 10px rgb(0 0 0 / 90%);
+		      }
+		
+		      p#bar {
+		          color: #fff;
+		          margin-top: 10px;
+		          text-align: center;
+		          font-size: 10px;
+		          text-shadow: 0 0 10px rgb(0 0 0 / 90%);
+		      }
+		      .rise6#arrlist{
+		          padding-bottom: 10px;
+		          padding-top: 24px;
+		          position:absolute;
+		          right: 0px;
+		          float: right;
+		          top:0;
+		      }
+		      .rise6Float#arrlist{
+		          padding-right: 10px!important;
+		      }
+		      .rise6 span{
+		          border-right: solid 3px #000;
+		          box-shadow: 0 0 6px rgb(0 0 0 / 70%);
+		          border-radius: 0px 0px 0px 3px;
+		          background: rgba(0,0,0,0.8);
+		          display: inline-block;
+		          text-align: right;
+		          font-size: 12px;
+		          position: relative;
+		          right: -00px;
+		          padding-top: 1px;
+		          padding-bottom: 1px;
+		          padding-right: 5px;
+		          padding-left: 5px;
+		          color: #fff;
+		          text-shadow: 0 0 5px #fff;
+		      }
+		
+		      .rise6Float .bottom span {
+		          border-radius: 0 0 3px 3px!important;
+		      }
+		      .rise6 li {
+		          transform: scale(0);
+		          transition: all 0.25s!important;
+		          opacity: 0;
+		          display: block;
+		          margin-right: -200px;
+		          text-align: right;
+		      }
+		      #arrlist, #arrlist *{
+		          list-style: none;
+		          transition: all 0.75s;
+		      }
+		      #targetHUD, #targetHUD *{
+		          list-style: none;
+		          transition: all 0.25s;
+		      }
+		      #targetHUD{
+		          position: absolute;
+		          top: calc( 50% + 10px );
+		          left: calc( 50% + 10px );
+		          width: 100%;
+		      }
+		
+		      #Notify, #Notify *{
+		          list-style: none;
+		          transition: all 0.25s;
+		      }
+		      #Notify{
+		          position: absolute;
+		          z-index: 200;
+		          top: 40px;
+		          right: 0px;
+		      }
+		      .target {
+		          height: auto;
+		          overflow-y: hidden;
+		          transform:scale(0.5);
+		          filter: blur(10px);
+		          display: block;
+		          text-align: left;
+		          width: max-content;
+		          padding: 10px;
+		          min-width: 130px;
+		          padding-right: 12px;
+		          padding-left: 12px;
+		          font-size: 16px;
+		          color: #fff;
+		          box-shadow: 0 0 15px black;
+		          margin: 10px;
+		          border-radius: 8px;
+		          margin-top: 10px;
+		          background: rgba(0,0,0,0.7);
+		      }
+		      .PlayerHurtTime {
+		          font-size: 10px;
+		      }
+		
+		      .notify {
+		          overflow-x: hidden;
+		          height: auto;
+		          overflow-y: hidden;
+		          display: block;
+		          text-align: left;
+		          width: max-content;
+		          padding: 10px;
+		          min-width: 130px;
+		          padding-right: 12px;
+		          padding-left: 12px;
+		          font-size: 16px;
+		          color: #fff;
+		          box-shadow: 0 0 15px black;
+		          margin: 10px;
+		          border-radius: 8px;
+		          position: absolute;
+		          padding-bottom: 0px;
+		          right: 0;
+		          background: rgba(0,0,0,0.7);
+		      }
+		      .time {
+		          width: calc( 100% + 20px );
+		          background: rgba(255,255,255);
+		          height: 2px;
+		          margin-left: -10px;
+		          transition: width 2s!important;
+		          margin-top: 8px;
+		      }
+		      .noti{
+		          position: relative;
+		      }
+		      .logo{
+		          transition: all 1.5s;
+		          width: 30%;
+		          opacity: 0;
+		          transform:scale(0);
+		      }
+		      #status {
+		          margin-left: 20px;
+		          color: #fff;
+		          text-shadow: 0 0 5px #000;
+		      }
+		      .clickgui{
+		          transform: scale(0);
+		          opacity: 0;
+		          transition: all 0.3s;
+		          position: absolute;
+		          top:0;
+		          z-index: 100;
+		          left: 0;
+		          width: 100%;
+		          height: 100%;
+		      }
+		      .clickgui-background{
+		          transition: all 0.5s;
+		          position: absolute;
+		          top:0;
+		          z-index: 99;
+		          left: 0;
+		          width: 100%;
+		          height: 100%;
+		          background:rgba(0,0,0,0);
+		      }
+		
+		      .screen{
+		          position: absolute;
+		          top:0;
+		          z-index: 9999999;
+		          left: 0;
+		          width: 100%;
+		          height: 100%;
+		          background:rgba(255,255,255);
+		      }
+		      .clickgui-main{
+		          position: relative;
+		          z-index: 102;
+		          background: #fff;
+		          border-radius: 35px;
+		          padding: 0px 8px 0px 8px;
+		          margin-top: 30px;
+		          box-shadow: 0 0 50px rgba(0,0,0,0.3);
+		          width: 100%;
+		          height: calc( 100% - 60px);
+		      }
+		      .c-category{
+		          overflow-y: scroll;
+		          height: 100%;
+		          border-radius: 35px 0 0 35px;
+		          background: rgba(0, 0, 0, 0.116);
+		      }
+		      .c-modules{
+		          overflow-y: scroll;
+		          padding: 0px;
+		          height: 100%;
+		          background: rgba(0, 0, 0, 0.05);
+		      }
+		      .category-button{
+		          transition: all 0.3s;
+		          margin: 10px;
+		          border-radius: 20px;
+		          border: solid 1px #4977FF;
+		          color: #3871E5;
+		          padding: 10px;
+		          padding-left: 20px;
+		      }
+		
+		      .SelectedCategory{
+		          margin: 10px;
+		          border-radius: 20px;
+		          border: solid 1px #4977FF;
+		          color: #fff;
+		          background: #3871E5;
+		          padding: 10px;
+		          padding-left: 20px;
+		      }
+		      .c-version{
+		          font-size: 10px;
+		      }
+		      .c-title{
+		          color: #4977FF;
+		          font-size: 18px;
+		      }
+		      .c-title-main{
+		          margin-top: 20px;
+		          margin-bottom: 20px;
+		          margin-left: 20px;
+		      }
+		      .c-exit{
+		          position:absolute;
+		          bottom: 10px;
+		      }
+		      .c-settings{
+		          overflow-y: scroll;
+		          height: 100%;
+		      }
+		      .category-exit-button{
+		          margin: 10px;
+		          border-radius: 20px;
+		          border: solid 0.5px #464646;
+		          color: #464646;
+		          padding: 10px;
+		          width: calc( 100% - 10px ) ;
+		          text-align: center;
+		          font-size: 10px;
+		      }
+		      .floatValue{
+		          width: 65%;
+		          position: absolute;
+		          right: 25px;
+		      }
+		
+		      .intValue{
+		          width: 65%;
+		          position: absolute;
+		          right: 25px;
+		      }
+		      .boolValue{
+		          position: absolute;
+		          right: 25px;
+		          margin-top: 20px;
+		      }
+		
+		      .modeValue{
+		          position: absolute;
+		          right: 25px;
+		      }
+		      .mdui-list{
+		          overflow-y: scroll;
+		      }
+		      .mdui-slider-discrete .mdui-slider-thumb span {
+		          position: absolute;
+		          top: 9px;
+		          left: -1px;
+		          width: 100%;
+		          text-shadow: 0 0 5px rgba(0,0,0,0.8);
+		          color: #fff;
+		          font-size: 10px;
+		          text-align: center;
+		          -webkit-transform: rotate(45deg);
+		          transform: rotate(45deg);
+		          opacity: 0;
+		          -webkit-transition: opacity .25s cubic-bezier(.4,0,.2,1);
+		          transition: opacity .25s cubic-bezier(.4,0,.2,1);
+		      }
+		      .mdui-list-item:hover {
+		          background-color: rgba(0,0,0,.0)!important;
+		      }
+		      .module-item{
+		          margin-left: -50%;
+		          opacity: 0;
+		          transition: all 0.3s;
+		      }
+		      #bottomLayer{
+		          position:absolute;
+		          top:0;
+		          left:0;
+		          z-index:101;
+		          width:100%;
+		          min-height: 100%;
+		      }
+		      .mdui-overlay-show{
+		          opacity: 0!important;
+		      }
+		      .screen-light {
+		          position: absolute;
+		          bottom: 50px;
+		          width: 1000px;
+		          border-radius: 100px;
+		          height: 1000px;
+		          filter: blur(10000px);
+		          margin: -600px;
+		          opacity: 0.2;
+		          transition: all 0.1s;
+		      }
+		      .screen-title {
+		          transition: all 0.1s;
+		          font-size: 60px;
+		          position: fixed;
+		          font-family: 'Robot';
+		          font-weight: 1000;
+		          top: 40%;
+		          width: 100%;
+		          text-align: center;
+		      }
+		      .screen-title span {
+		          font-size: 20px;
+		          font-weight: 300;
+		      }
+		
+		      .title2 {
+		          top: 90%;
+		          font-size: 14px;
+		          font-weight: 300;
+		      }
+	</style>
+</head>
+
+<body>
+	<div id="arrlist" class="rise6 rise6Float">
+		<ul id="modules">
+		</ul>
+	</div>
+	<div id="targetHUD" class="targetHud">
+		<ul id="targets">
+		</ul>
+	</div>
+	<div id="music">
+		<p id="bar">Waiting...</p>
+		<p id="gc">等待音乐加载</p>
+		<div style="display: none">
+			<audio id="player" controls="controls" muted>
+				<source id="playersrc" autoplay="true" src="">
+			</audio>
+		</div>
+	</div>
+	<div id="Notify">
+		<ul id="Notifys" style="padding: 20px;">
+		</ul>
+	</div>
+	<script>
+		var ids=[];
+		            var ps;
+		            function play() {
+		                document.getElementById("player").muted = false;
+		                var player = $("#player")[0];
+		                ps=ids[randomNum(0,ids.length)];
+		                if($("#playersrc").attr("src")!="http://music.163.com/song/media/outer/url?id="+ps){
+		                    $("#playersrc").attr("src","http://music.163.com/song/media/outer/url?id="+ps);
+		                    player.load();
+		                }else{
+		                    if (player.playing){
+		                        player.play();
+		                    }
+		                    return play();
+		                }
+		                console.log("正在连接音乐API....");
+		                $.ajax({
+		                    url: 'http://music.163.com/api/song/media?id='+ps,
+		                    type: 'get',
+		                    dataType: 'jsonp',
+		                    jsonpCallback: "played",
+		                    data: {}
+		                }).error(function(e){
+		                    console.error("获取错误-"+ps);
+		                    console.error(e);
+		                });
+		                return;
+		            }
+		            function format(s) {
+		                var h;
+		                h = Math.floor(s / 60);
+		                s = s % 60;
+		                h += '';
+		                s += '';
+		                s=Math.floor(s);
+		                h=Math.floor(h);
+		                if(h<10){
+		                    h="0"+h
+		                }
+		                if(s<10){
+		                    s="0"+s
+		                }
+		                if (h != 0) {
+		                    return h + ':' + s;
+		                } else {
+		                    return "00:"+s;
+		                }
+		            }
+		            function tos(time) {
+		                    var s = '';
+		                    var min = time.split(':')[0];
+		                    var sec = time.split(':')[1];
+		                    s = Number(min*60) + Number(sec);
+		                    return s;
+		            }
+		            function isin(a,b){
+		            if(a>=b-0.5 && a<=b+0.5) return true;
+		            return false;
+		            }
+		            var times=0;
+		            $("#player").on('ended',function(){play();});
+		            $("#player").on(
+		                "timeupdate",
+		                function(event){
+		                    var times=this.currentTime;
+		                    if(songName!=null)
+		                        $("#bar").html("正在播放: 《"+songName+"》 "+format(times)+"/"+format(this.duration))
+		                    if(songName=="歌名获取错误")
+		                        $("#bar").html("正在播放:  "+format(times)+"/"+format(this.duration))
+		                    for(var i=0;i<gc.length;i++){
+		                        var aa=gc[i].replace("[","(").replace("]",")");
+		                        var result = aa.match(/\(([^)]*)\)/);
+		                        if (result) {
+		                        var a=tos(result[1]);
+		                            if(isin(a,times)){
+		                                if(gc[i].replace("[","(").replace("]",")").replace("(","").replace(")","").replace(result[1],"")!=""){
+		                                    $("#gc").html(gc[i].replace("[","(").replace("]",")").replace("(","").replace(")","").replace(result[1],""));
+		                                }
+		                            }
+		                        }
+		                    }
+		                }
+		            );
+		            var songName=null
+		            var gc=[];
+		            function played(b){
+		                console.log("连接成功，请求到的数据:",b);
+		                if (player.paused){
+		                    for(var i=0;i<100;i++){setTimeout("$('#player').prop('volume', "+(i/100)+");",(i*100))}
+		                    document.getElementById("player").muted = false;
+		                    player.play();
+		                }else {
+		                    player.pause();
+		                }
+		                        console.log(ps)
+		                $.get("https://apis.netstart.cn/music/song/detail?ids=" + ps,function(b){
+		                    b=JSON.parse(JSON.stringify(b));
+		                    console.log(b)
+		                    console.log('%c播到的是《'+b.songs[0].name+'》','color: #fff;background:#0066FF;padding:10px;padding-left:30px;padding-right:30px;border-radius:50px;font-size:20px;');
+		                    $("#gc").html('已加载《'+b.songs[0].name+'》');
+		                    songName=b.songs[0].name
+		                    if(songName!="歌名获取错误"){
+		                     $("#bar").html("正在播放: 《"+songName+"》 --:--");
+		                     }else {$("#bar").html("正在播放 --:--")
+		                    }
+		                }).error(function(e){
+		                    songName="歌名获取错误"
+		                    console.log("歌名错误: "+e);
+		                     $("#bar").html("正在播放:  --:--");
+		                })
+		                gc=b.lyric.split("\n");
+		                gc=gc.filter(function (s) {
+		                    return s && s.trim();
+		                });
+		                console.log("排序成功:",gc,"音乐准备就绪!");
+		            }
+		          function playMusic(){
+		                if($("#music").css("display")=="none"){
+		                    $("#music").css("display","block");
+		                    play();
+		                }else{
+		                    player.pause();
+		                    $("#music").css("display","none");
+		                }
+		            }
+		          function addId(id){
+		                ids[ids.length]=id
+		            }
+		            function setId(id){
+		                ids=id
+		                $("#music").css("display","none");
+		                playMusic()
+		            }
+		            function clear(){
+		                ids=[]
+		            }
+		          function randomNum(minNum,maxNum){
+		                switch(arguments.length){
+		                    case 1:
+		                        return parseInt(Math.random()*minNum+1,10);
+		                    break;
+		                    case 2:
+		                        return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10);
+		                    break;
+		                        default:
+		                            return 0;
+		                        break;
+		                }
+		            }
+		    function playMusicByID(id="1377530437"){
+		    clear();
+		    setId([id]);
+		    }
+		    function stopMusic(){
+		        document.getElementById("player").pause();
+		        $("#music").css("display","none");
+		        clear();
+		    }
+		var NotiIndex=0;
+		  function notify(message){
+		            NotiIndex++;
+		            var i=NotiIndex;
+		            $("#Notifys").append('<li style="margin-right:-150px;opacity:0;" id="N_'+i+'" class="noti"><div class="notify">'+message+'<div id="NT_'+i+'" class="time"></div></div></li>');
+		            setTimeout(function(){
+		                $('#N_'+i).attr("style","margin-right:0px;opacity:1;height:50px");
+		                $('#N_'+i).attr("state","FaceIn");
+		                $('#NT_'+i).css("width","0px");
+		            },10)
+		            setTimeout(function(){
+		                $('#N_'+i).attr("style","margin-right:-150px;opacity:0;height:0px");
+		                $('#N_'+i).attr("state","FaceOut");
+		            },1290);
+		            setTimeout(function(){
+		                $('#N_'+i).remove()
+		            },1500);
+		        }
+		  class ArrayList {
+		            constructor() {
+		                this.list = [];
+		            }
+		
+		            addModule(name,values) {
+		                notify("Enabled "+name);
+		                let span = $("<span>").text(name);
+		                    span.append(values)
+		                let li = $("<li>").append(span);
+		                this.list.push({name: name, li: li});
+		                arrList.sortList();
+		                arrList.displayList();
+		                setTimeout(function(){
+		                    arrList.sortList();
+		                    arrList.displayList();
+		                },5)
+		            }
+		
+		            removeModule(name) {
+		                notify("Disabled "+name);
+		                let index = this.list.findIndex(module => module.name === name);
+		                if (index !== -1) {
+		                    var move=null
+		                    if(index!=this.list.length-1){
+		                        move=this.list[index+1].li
+		                        $(move).css("transition","all 0.25s")
+		                        $(move).css("margin-top","-18px")
+		                    }
+		                    var deleted=this.list[index].li
+		                    $(deleted).css("transform","scale(0)")
+		                    $(deleted).css("transition","all 0.25s")
+		                    $(deleted).css("margin-right","-200px")
+		                    this.list.splice(index, 1);
+		                    setTimeout(function(){
+		                        arrList.sortList();
+		                        arrList.displayList();
+		                        $(move).css("margin-top","0")
+		                    },245)
+		                }
+		
+		            }
+		            sortList() {
+		                this.list.sort((a, b) => {
+		                    let widthA = a.li.children().width();
+		                    let widthB = b.li.children().width();
+		                    return widthB - widthA;
+		                });
+		                setTimeout(function(){
+		                    arrList.list.forEach(function(a){
+		                        setTimeout(function(){
+		                            if($(a.li).css("opacity")!="1"){
+		                                $(a.li).css("margin-top","0")
+		                                $(a.li).css("opacity","1")
+		                                $(a.li).css("transform","scale(1)")
+		                                $(a.li).css("margin-right","0")
+		                            }
+		                        },5)
+		                    })
+		                },5)
+		            }
+		            displayList() {
+		                $("#modules").empty();
+		                this.list.forEach((module, index) => {
+		                    module.li.attr("index",index);
+		                    $("#modules").append(module.li);
+		                });
+		            }
+		        }
+		        let arrList = new ArrayList();
+	</script>
+	<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
+</body>
+
+</html>

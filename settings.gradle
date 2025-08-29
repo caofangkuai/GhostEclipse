@@ -1,0 +1,56 @@
+pluginManagement {
+  repositories {
+   maven { url 'https://maven.aliyun.com/repository/public/' }
+   maven { url 'https://maven.aliyun.com/repository/google/' }
+   maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
+   maven { url 'https://dl.bintray.com/ppartisan/maven/' }
+   maven { url 'https://clojars.org/repo/' }
+   maven { url 'https://jitpack.io' }
+   maven { 
+        name 'opencollab'
+        url 'https://repo.opencollab.dev/main/'
+    }
+    maven { url = 'https://repo.opencollab.dev/maven-releases/' }
+    maven { url = 'https://repo.opencollab.dev/maven-snapshots/' }
+    maven { url = 'https://protohax-repo.caofangkuai666.top/maven_repo/' }
+    gradlePluginPortal()
+    google()
+    mavenCentral()
+  }
+  buildscript {
+        repositories {
+            mavenCentral()
+            maven {
+                url = uri("https://storage.googleapis.com/r8-releases/raw")
+            }
+        }
+        dependencies {
+            classpath("com.android.tools:r8:8.1.44")
+        }
+    }
+}
+
+dependencyResolutionManagement {
+  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+  repositories {
+    maven { url 'https://maven.aliyun.com/repository/public/' }
+    maven { url 'https://maven.aliyun.com/repository/google/' }
+    maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
+    maven { url 'https://dl.bintray.com/ppartisan/maven/' }
+    maven { url 'https://clojars.org/repo/' }
+    maven { url 'https://jitpack.io' }
+    maven { 
+        name 'opencollab'
+        url 'https://repo.opencollab.dev/main/'
+    }
+    maven { url = 'https://repo.opencollab.dev/maven-releases/' }
+    maven { url = 'https://repo.opencollab.dev/maven-snapshots/' }
+    maven { url = 'https://protohax-repo.caofangkuai666.top/maven_repo/' }
+    google()
+    mavenCentral()
+  }
+}
+
+rootProject.name = "GhostEclipse"
+
+include(":app")

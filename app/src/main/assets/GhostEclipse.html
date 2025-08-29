@@ -1,0 +1,581 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>GhostEclipse</title>
+	<link rel="stylesheet" href="./mdui.min.css">
+	<script src="./jquery.min.js"></script>
+	<style>
+		body {
+		  background-color: rgba(255,255,255,0);
+		  color: white;
+		  font-family: Arial, sans-serif;
+		  text-align: center;
+		  margin: 0;
+		  padding: 0;
+		  height:100%;
+		  width:100%;
+		}
+		    html {
+		height:100%;
+		  width:100%;
+		}
+		.container {
+		  display: flex;
+		  flex-direction: column;
+		  align-items: center;
+		  justify-content: center;
+		  width:100%;
+		}
+		    .button {
+		background-color: #1B1B1B;
+		color: #f12b00;
+		border: none;
+		padding: 10px 20px;
+		cursor: pointer;
+		width: 100%;
+		font-size:14px;
+		    }
+		  .switchButton{
+		    background-color: #1B1B1B;
+		    color:#C1C1C1;
+		border: none;
+		padding: 10px 20px;
+		cursor: pointer;
+		width: 100%;
+		font-size:14px;
+		    }
+		  .button2 {
+		    background-color: #3C3C3C;
+		    border: none;
+		padding: 10px 20px;
+		cursor: pointer;
+		color: #C1C1C1;
+		    width: 50%;
+		    font-size: 110%;
+		    }
+		  #title {
+		    background-color: #3C3C3C;
+		    color: #6498D4;
+		    border: none;
+		    padding: 10px 20px;
+		    cursor: pointer;
+		    width: 100%;
+		    font-size: 16px;
+		  font-weight: 500;
+		    }
+		  .button3 {
+		    color: #C1C1C1;
+		    background-color: #1B1B1B;
+		border: none;
+		padding: 10px 20px;
+		cursor: pointer;
+		width: 100%;
+		font-size:15px;
+		    }
+		  .button4 {
+		background-color: #1B1B1B;
+		color: #888888;
+		border: none;
+		padding: 10px 20px;
+		cursor: pointer;
+		width: 100%;
+		font-size:14px;
+		    }
+		  * {
+		        background: rgb(255 255 255 / 0%);
+		        margin: 0;
+		      }
+		      p#gc {
+		          color: #fff;
+		          text-align: center;
+		          margin-bottom: 30px;
+		          text-shadow: 0 0 10px rgb(0 0 0 / 90%);
+		      }
+		
+		      p#bar {
+		          color: #fff;
+		          margin-top: 10px;
+		          text-align: center;
+		          font-size: 10px;
+		          text-shadow: 0 0 10px rgb(0 0 0 / 90%);
+		      }
+		      #music{
+		          display:none;
+		          position: absolute;
+		          width:100%;
+		          background-color:#ffffff;
+		          height:79px;
+		      }
+		      .rise6#arrlist{
+		          padding-bottom: 10px;
+		          padding-top: 24px;
+		          position:absolute;
+		          right: 0px;
+		          float: right;
+		          top:0;
+		      }
+		      .rise6Float#arrlist{
+		          padding-right: 10px!important;
+		      }
+		      .rise6 span{
+		          border-right: solid 3px #000;
+		          box-shadow: 0 0 6px rgb(0 0 0 / 70%);
+		          border-radius: 0px 0px 0px 3px;
+		          background: rgba(0,0,0,0.8);
+		          display: inline-block;
+		          text-align: right;
+		          font-size: 12px;
+		          position: relative;
+		          right: -00px;
+		          padding-top: 1px;
+		          padding-bottom: 1px;
+		          padding-right: 5px;
+		          padding-left: 5px;
+		          color: #fff;
+		          text-shadow: 0 0 5px #fff;
+		      }
+		
+		      .rise6Float .bottom span {
+		          border-radius: 0 0 3px 3px!important;
+		      }
+		      .rise6 li {
+		          transform: scale(0);
+		          transition: all 0.25s!important;
+		          opacity: 0;
+		          display: block;
+		          margin-right: -200px;
+		          text-align: right;
+		      }
+		      #arrlist, #arrlist *{
+		          list-style: none;
+		          transition: all 0.75s;
+		      }
+		      #targetHUD, #targetHUD *{
+		          list-style: none;
+		          transition: all 0.25s;
+		      }
+		      #targetHUD{
+		          position: absolute;
+		          top: calc( 50% + 10px );
+		          left: calc( 50% + 10px );
+		          width: 100%;
+		      }
+		
+		      #Notify, #Notify *{
+		          list-style: none;
+		          transition: all 0.25s;
+		      }
+		      #Notify{
+		          position: absolute;
+		          z-index: 200;
+		          top: 40px;
+		          right: 0px;
+		      }
+		      .target {
+		          height: auto;
+		          overflow-y: hidden;
+		          transform:scale(0.5);
+		          filter: blur(10px);
+		          display: block;
+		          text-align: left;
+		          width: max-content;
+		          padding: 10px;
+		          min-width: 130px;
+		          padding-right: 12px;
+		          padding-left: 12px;
+		          font-size: 16px;
+		          color: #fff;
+		          box-shadow: 0 0 15px black;
+		          margin: 10px;
+		          border-radius: 8px;
+		          margin-top: 10px;
+		          background: rgba(0,0,0,0.7);
+		      }
+		      .PlayerHurtTime {
+		          font-size: 10px;
+		      }
+		
+		      .notify {
+		          overflow-x: hidden;
+		          height: auto;
+		          overflow-y: hidden;
+		          display: block;
+		          text-align: left;
+		          width: max-content;
+		          padding: 10px;
+		          min-width: 130px;
+		          padding-right: 12px;
+		          padding-left: 12px;
+		          font-size: 16px;
+		          color: #fff;
+		          box-shadow: 0 0 15px black;
+		          margin: 10px;
+		          border-radius: 8px;
+		          position: absolute;
+		          padding-bottom: 0px;
+		          right: 0;
+		          background: rgba(0,0,0,0.7);
+		      }
+		      .time {
+		          width: calc( 100% + 20px );
+		          background: rgba(255,255,255);
+		          height: 2px;
+		          margin-left: -10px;
+		          transition: width 2s!important;
+		          margin-top: 8px;
+		      }
+		      .noti{
+		          position: relative;
+		      }
+		      .logo{
+		          transition: all 1.5s;
+		          width: 30%;
+		          opacity: 0;
+		          transform:scale(0);
+		      }
+		      #status {
+		          margin-left: 20px;
+		          color: #fff;
+		          text-shadow: 0 0 5px #000;
+		      }
+		      .clickgui{
+		          transform: scale(0);
+		          opacity: 0;
+		          transition: all 0.3s;
+		          position: absolute;
+		          top:0;
+		          z-index: 100;
+		          left: 0;
+		          width: 100%;
+		          height: 100%;
+		      }
+		      .clickgui-background{
+		          transition: all 0.5s;
+		          position: absolute;
+		          top:0;
+		          z-index: 99;
+		          left: 0;
+		          width: 100%;
+		          height: 100%;
+		          background:rgba(0,0,0,0);
+		      }
+		
+		      .screen{
+		          position: absolute;
+		          top:0;
+		          z-index: 9999999;
+		          left: 0;
+		          width: 100%;
+		          height: 100%;
+		          background:rgba(255,255,255);
+		      }
+		      .clickgui-main{
+		          position: relative;
+		          z-index: 102;
+		          background: #fff;
+		          border-radius: 35px;
+		          padding: 0px 8px 0px 8px;
+		          margin-top: 30px;
+		          box-shadow: 0 0 50px rgba(0,0,0,0.3);
+		          width: 100%;
+		          height: calc( 100% - 60px);
+		      }
+		      .c-category{
+		          overflow-y: scroll;
+		          height: 100%;
+		          border-radius: 35px 0 0 35px;
+		          background: rgba(0, 0, 0, 0.116);
+		      }
+		      .c-modules{
+		          overflow-y: scroll;
+		          padding: 0px;
+		          height: 100%;
+		          background: rgba(0, 0, 0, 0.05);
+		      }
+		      .category-button{
+		          transition: all 0.3s;
+		          margin: 10px;
+		          border-radius: 20px;
+		          border: solid 1px #4977FF;
+		          color: #3871E5;
+		          padding: 10px;
+		          padding-left: 20px;
+		      }
+		
+		      .SelectedCategory{
+		          margin: 10px;
+		          border-radius: 20px;
+		          border: solid 1px #4977FF;
+		          color: #fff;
+		          background: #3871E5;
+		          padding: 10px;
+		          padding-left: 20px;
+		      }
+		      .c-version{
+		          font-size: 10px;
+		      }
+		      .c-title{
+		          color: #4977FF;
+		          font-size: 18px;
+		      }
+		      .c-title-main{
+		          margin-top: 20px;
+		          margin-bottom: 20px;
+		          margin-left: 20px;
+		      }
+		      .c-exit{
+		          position:absolute;
+		          bottom: 10px;
+		      }
+		      .c-settings{
+		          overflow-y: scroll;
+		          height: 100%;
+		      }
+		      .category-exit-button{
+		          margin: 10px;
+		          border-radius: 20px;
+		          border: solid 0.5px #464646;
+		          color: #464646;
+		          padding: 10px;
+		          width: calc( 100% - 10px ) ;
+		          text-align: center;
+		          font-size: 10px;
+		      }
+		      .floatValue{
+		          width: 65%;
+		          position: absolute;
+		          right: 25px;
+		      }
+		
+		      .intValue{
+		          width: 65%;
+		          position: absolute;
+		          right: 25px;
+		      }
+		      .boolValue{
+		          position: absolute;
+		          right: 25px;
+		          margin-top: 20px;
+		      }
+		
+		      .modeValue{
+		          position: absolute;
+		          right: 25px;
+		      }
+		      .mdui-list{
+		          overflow-y: scroll;
+		      }
+		      .mdui-slider-discrete .mdui-slider-thumb span {
+		          position: absolute;
+		          top: 9px;
+		          left: -1px;
+		          width: 100%;
+		          text-shadow: 0 0 5px rgba(0,0,0,0.8);
+		          color: #fff;
+		          font-size: 10px;
+		          text-align: center;
+		          -webkit-transform: rotate(45deg);
+		          transform: rotate(45deg);
+		          opacity: 0;
+		          -webkit-transition: opacity .25s cubic-bezier(.4,0,.2,1);
+		          transition: opacity .25s cubic-bezier(.4,0,.2,1);
+		      }
+		      .mdui-list-item:hover {
+		          background-color: rgba(0,0,0,.0)!important;
+		      }
+		      .module-item{
+		          margin-left: -50%;
+		          opacity: 0;
+		          transition: all 0.3s;
+		      }
+		      #bottomLayer{
+		          position:absolute;
+		          top:0;
+		          left:0;
+		          z-index:101;
+		          width:100%;
+		          min-height: 100%;
+		      }
+		      .mdui-overlay-show{
+		          opacity: 0!important;
+		      }
+		      .screen-light {
+		          position: absolute;
+		          bottom: 50px;
+		          width: 1000px;
+		          border-radius: 100px;
+		          height: 1000px;
+		          filter: blur(10000px);
+		          margin: -600px;
+		          opacity: 0.2;
+		          transition: all 0.1s;
+		      }
+		      .screen-title {
+		          transition: all 0.1s;
+		          font-size: 60px;
+		          position: fixed;
+		          font-family: 'Robot';
+		          font-weight: 1000;
+		          top: 40%;
+		          width: 100%;
+		          text-align: center;
+		      }
+		      .screen-title span {
+		          font-size: 20px;
+		          font-weight: 300;
+		      }
+		
+		      .title2 {
+		          top: 90%;
+		          font-size: 14px;
+		          font-weight: 300;
+		      }
+	</style>
+</head>
+
+<body>
+	<div id="floatingWindowLayout" style="position: fixed;width:100%">
+		<div id="listHead" style="height:81px;position: fixed;width:100%"> <button class="mdui-ripple mdui-ripple-white" id="title" onclick="document.location = &quot;blockhackjs://callBack?function=closeFloatingWindow&amp;param=[]&quot;">GhostEclipse</button>
+			<div style="display:flex;"> <button class="button2 mdui-ripple mdui-ripple-white" onclick="mod()">功能</button> <button class="button2 mdui-ripple mdui-ripple-white" onclick="configuration()">配置</button>
+			</div>
+		</div>
+		<div id="listBody" style="background-color:#1B1B1B;height: calc(100vh - 81px);overflow-y: scroll;margin-top: 81px;width:100%">
+			<div class="container" id="mod">
+			</div>
+			<div class="container" id="configuration" style="display:none;width:100%"> <button class="button3 mdui-ripple mdui-ripple-white">create</button> <button class="button3 mdui-ripple mdui-ripple-white">保存</button>
+			</div>
+			<div class="container" id="param" style="display:none;width:100%">
+			</div>
+		</div>
+	</div>
+	<script>
+		function goLink(functionName,param){
+		document.location="blockhackjs://callBack?function=" + functionName + "&param=[\"" + param + "\"]";
+		}
+		function setSliderText(a,b){
+		document.getElementById("sliderText").textContent = a + b;
+		}
+		function stateRender(state){
+		if(state == "ON"){
+		return '<p style="color:#00e946;">ON</p>';
+		}else{
+		return '<p style="color:#f12b00;">OFF</p>';
+		}
+		}
+		    function addFunction(name, openFunction, closeFunction,param='[{"type":"text","text":"没有任何可调节参数"}]') {
+		  let button = document.createElement("button");
+		  button.classList.add("button", "mdui-ripple", "mdui-ripple-white");
+		  button.textContent = name;
+		  button.addEventListener("click",function(){
+		    let btn = this;
+		    let btnColor = window.getComputedStyle(btn).color;
+		    if (btnColor === "rgb(0, 233, 70)") {
+		      btn.style.color = "#f12b00";
+		      document.location = "blockhackjs://callBack?function=" + closeFunction + "&param=[]";
+		    } else {
+		      btn.style.color = "#00e946";
+		      document.location = "blockhackjs://callBack?function=" + openFunction + "&param=[]";
+		    }
+		  });
+		  addLongtabListener(button,()=>{
+		    document.getElementById("mod").style.display = "none";
+		    document.getElementById("param").innerHTML="";
+		    let json = JSON.parse(param);
+		    for (var i=0;i<json.length;i++){ 
+		       if(json[i]["type"] == "text"){
+		 let pElement = document.createElement("p");
+		 pElement.style.width = "100%";
+		 pElement.style.fontSize = "15px";
+		 pElement.style.fontWeight = "500";
+		 pElement.style.color = "#C1C1C1";
+		 pElement.textContent = json[i]["text"];
+		 document.getElementById("param").appendChild(pElement);
+		       }else if(json[i]["type"] == "switch"){
+		   let switchButton = document.createElement("button");
+		   switchButton.classList.add("switchButton", "mdui-ripple", "mdui-ripple-white");
+		   let state = json[i]["default"] ? "ON" : "OFF";
+		   switchButton.innerHTML = json[i]["text"] + stateRender(state);
+		   let switchText = json[i]["text"];
+		   let onChangeEvent = json[i]["onChange"];
+		   switchButton.addEventListener("click",function(){
+		   state = (state == "OFF") ? "ON" : "OFF";
+		   this.innerHTML = switchText + stateRender(state);
+		   goLink(onChangeEvent,(state == "OFF") ? false : true);
+		   });
+		   document.getElementById("param").appendChild(switchButton);
+		       }else if(json[i]["type"] == "selector"){
+		   let selectorButton = document.createElement("button");
+		   selectorButton.classList.add("switchButton", "mdui-ripple", "mdui-ripple-white");
+		   let optionText = json[i]["options"][(json[i]["defaultOption"])];
+		   selectorButton.textContent = json[i]["text"] + optionText;
+		   let selectorText = json[i]["text"];
+		   let onChangeEvent = json[i]["onChange"];
+		   let optNum = 0;
+		   let selOpts = json[i]["options"];
+		   selectorButton.addEventListener("click",function(){
+		   if(optNum >= (selOpts.length - 1)){
+		   optNum = 0;
+		   }else{
+		   optNum++;
+		   }
+		   optionText = selOpts[optNum];
+		   this.textContent = selectorText + optionText;
+		   goLink(onChangeEvent,optionText);
+		   });
+		   document.getElementById("param").appendChild(selectorButton);
+		       }else if(json[i]["type"] == "slider"){
+		   let html = `<p id="sliderText" style="width:100%;font-size:15px;font-weight:500;color:#C1C1C1;">${(json[i]["text"] + json[i]["defaultValue"])}</p>` + 
+		   '<label class="mdui-slider">' + 
+		   `<input type="range" step="${json[i]['step']}" min="${json[i]['min']}" max="${json[i]['max']}" value="${json[i]['defaultValue']}" onChange="goLink('${json[i]['onChange']}',this.value);setSliderText('${json[i]['text']}',this.value);"/></label>`;
+		   $("#param").append(html);
+		   mdui.mutation();
+		       }
+		    }
+		    let back = document.createElement("button");
+		  back.classList.add("button4", "mdui-ripple", "mdui-ripple-white");
+		  back.textContent = "< Back";
+		  back.addEventListener("click", function() {
+		    document.getElementById("param").style.display = "none";
+		    document.getElementById("mod").style.display = "flex";
+		  });
+		    document.getElementById("param").appendChild(back);
+		    document.getElementById("param").style.display = "flex";
+		  });
+		  document.getElementById("mod").appendChild(button);
+		}
+		  function mod(){
+		  document.getElementById("mod").style.display = "flex";
+		  document.getElementById("configuration").style.display = "none";
+		  document.getElementById("param").style.display = "none";
+		  }
+		function configuration(){
+		  document.getElementById("mod").style.display = "none";
+		  document.getElementById("configuration").style.display = "flex";
+		  document.getElementById("param").style.display = "none";
+		  }
+		function addLongtabListener(target,callback){
+		    let timer=0
+		
+		    target.ontouchstart=()=>{
+		timer=0
+		timer=setTimeout(()=>{callback();timer=0},380)
+		    }
+		
+		    target.ontouchmove=()=>{
+		clearTimeout(timer)
+		timer=0 
+		    }
+		
+		    target.ontouchend=()=>{  
+		       if(timer){clearTimeout(timer)}
+		    }
+		}
+		//addFunction('TEST','TESTOpen','TESTClose','[{"type":"text","text":"TEST"},{"type":"switch","text":"TEST：","default":true,"onChange":"switch"},{"type":"selector","text":"TEST：","options":["A","B","C"],"defaultOption":0,"onChange":"selector"},{"type":"slider","step":1,"text":"TEST：","min":0,"max":100,"defaultValue":0,"onChange":"slider"}]');
+	</script>
+	<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
+</body>
+
+</html>

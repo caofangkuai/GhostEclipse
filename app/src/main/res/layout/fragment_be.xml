@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:padding="16dp"
+     android:id="@+id/constraintLayout">
+
+    <com.google.android.material.button.MaterialButton
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         app:cornerRadius="10dp"
+         android:id="@+id/login_microsoft"
+         android:text="Login with Microsoft account" />
+
+    <TextView
+         android:layout_height="wrap_content"
+         android:layout_width="wrap_content"
+         app:layout_constraintTop_toBottomOf="@id/login_microsoft"
+         android:id="@+id/tv2"
+         android:text="Please select your Minecraft version:" />
+
+    <Spinner
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         app:layout_constraintTop_toBottomOf="@id/tv2"
+         android:id="@+id/mc_version">
+
+    </Spinner>
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:orientation="horizontal"
+         app:layout_constraintTop_toBottomOf="@id/mc_version"
+         android:id="@+id/ll1">
+
+        <com.google.android.material.textfield.TextInputLayout
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:gravity="left|center_vertical"
+             android:layout_weight="1"
+             android:layout_gravity="left">
+
+            <com.google.android.material.textfield.TextInputEditText
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:hint="IP"
+                 android:singleLine="true"
+                 android:id="@+id/ip" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:gravity="left|center_vertical"
+             android:layout_weight="1"
+             android:layout_gravity="right">
+
+            <com.google.android.material.textfield.TextInputEditText
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:hint="Port"
+                 android:singleLine="true"
+                 android:inputType="number"
+                 android:text="19132"
+                 android:id="@+id/port" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         app:cornerRadius="10dp"
+         android:layout_marginTop="50dp"
+         app:layout_constraintTop_toBottomOf="@id/ll1"
+         android:id="@+id/connect"
+         android:text="Connect" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 分组区域: 设置类别 -->
+    <PreferenceCategory
+        android:key="general_settings"
+        android:title="General Settings">
+
+        <!-- 普通设置项 -->
+        <Preference
+            android:key="music_list"
+            android:summary="Manage the list of music being played"
+            android:title="Music List" />
+
+        <!-- 文本编辑框 -->
+        <EditTextPreference
+            android:inputType="text"
+            android:key="watermark"
+            android:summary="The username displayed by the watermark"
+            android:title="Watermark" />
+
+        <!-- 单选列表 -->
+        <ListPreference
+            android:defaultValue="ProtoHax UI"
+            android:entries="@array/functional_floating_window_type"
+            android:entryValues="@array/functional_floating_window_type"
+            android:key="functional_floating_window_type"
+            android:summary="Select the type of functional floating window"
+            android:title="Functional Floating Window Type" />
+        
+        <ListPreference
+            android:defaultValue="FoodByte UI"
+            android:entries="@array/switch_floating_window_type"
+            android:entryValues="@array/switch_floating_window_type"
+            android:key="switch_floating_window_type"
+            android:summary="Select the type of floating window for the switch"
+            android:title="Switch Floating Window Type" />
+        
+        <Preference
+            android:key="about"
+            android:summary="About"
+            android:title="About" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

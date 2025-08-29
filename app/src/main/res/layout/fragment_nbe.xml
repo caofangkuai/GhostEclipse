@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:padding="16dp"
+     android:id="@+id/constraintLayout">
+
+    <com.google.android.material.textfield.TextInputLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:id="@+id/til1">
+
+        <com.google.android.material.textfield.TextInputEditText
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:hint="Email"
+             android:singleLine="true"
+             android:inputType="textEmailAddress"
+             android:id="@+id/email" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         app:layout_constraintTop_toBottomOf="@id/til1"
+         android:id="@+id/til2">
+
+        <com.google.android.material.textfield.TextInputEditText
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:hint="Password"
+             android:singleLine="true"
+             android:id="@+id/pwd" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         app:cornerRadius="10dp"
+         app:layout_constraintTop_toBottomOf="@id/til2"
+         android:id="@+id/random_account"
+         android:text="Random Account" />
+
+    <TextView
+         android:layout_height="wrap_content"
+         android:layout_width="wrap_content"
+         app:layout_constraintTop_toBottomOf="@id/random_account"
+         android:id="@+id/tv2"
+         android:text="Please select your Minecraft version:" />
+
+    <Spinner
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         app:layout_constraintTop_toBottomOf="@id/tv2"
+         android:id="@+id/mc_version">
+
+    </Spinner>
+
+    <com.google.android.material.textfield.TextInputLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         app:layout_constraintTop_toBottomOf="@id/mc_version"
+         android:id="@+id/til3">
+
+        <com.google.android.material.textfield.TextInputEditText
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:hint="Room Code"
+             android:singleLine="true"
+             android:inputType="number"
+             android:id="@+id/room_code" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         app:cornerRadius="10dp"
+         android:layout_marginTop="50dp"
+         app:layout_constraintTop_toBottomOf="@id/til3"
+         android:id="@+id/connect"
+         android:text="Connect" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
